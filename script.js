@@ -1,6 +1,7 @@
 const form = document.getElementById("form");
 const input = document.getElementById("input");
 const todosUL = document.getElementById("todos");
+const deleteBtn = document.getElementById("delete-btn");
 
 const todos = JSON.parse(localStorage.getItem("todos"));
 
@@ -63,3 +64,11 @@ function updateLS() {
 
   localStorage.setItem("todos", JSON.stringify(todos));
 }
+
+deleteBtn.addEventListener("click", () => {
+  const items = document.querySelectorAll("li");
+  console.log(items);
+  items.forEach((item) => item.remove());
+  updateLS();
+  console.log(items);
+});
