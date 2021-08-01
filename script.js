@@ -6,6 +6,7 @@ const deleteBtn = document.getElementById("delete-btn");
 const todos = JSON.parse(localStorage.getItem("todos"));
 
 if (todos) {
+  displayDeleteBtn();
   todos.forEach((todo) => {
     addTodo(todo);
   });
@@ -17,6 +18,8 @@ form.addEventListener("submit", (e) => {
   addTodo();
 
   updateLS();
+
+  displayDeleteBtn();
 });
 
 function addTodo(todo) {
@@ -42,6 +45,7 @@ function addTodo(todo) {
       e.preventDefault();
       todoEl.remove();
       updateLS();
+      displayDeleteBtn();
     });
 
     todosUL.appendChild(todoEl);
@@ -65,10 +69,19 @@ function updateLS() {
   localStorage.setItem("todos", JSON.stringify(todos));
 }
 
+function displayDeleteBtn() {
+  const todosList = JSON.parse(localStorage.getItem("todos"));
+  // console.log(todosList);
+  if (todosList.length > 0) {
+    deleteBtn.style.display = "block";
+  } else {
+    deleteBtn.style.display = "none";
+  }
+}
+
 deleteBtn.addEventListener("click", () => {
   const items = document.querySelectorAll("li");
-  console.log(items);
   items.forEach((item) => item.remove());
   updateLS();
-  console.log(items);
+  displayDeleteBtn();
 });
