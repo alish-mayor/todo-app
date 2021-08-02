@@ -5,6 +5,10 @@ const deleteBtn = document.getElementById("delete-btn");
 
 const todos = JSON.parse(localStorage.getItem("todos"));
 
+let completedTodos = 0;
+
+countCompleted();
+
 if (todos) {
   displayDeleteBtn();
   todos.forEach((todo) => {
@@ -14,11 +18,8 @@ if (todos) {
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-
   addTodo();
-
   updateLS();
-
   displayDeleteBtn();
 });
 
@@ -37,13 +38,25 @@ function addTodo(todo) {
     todoEl.innerText = todoText;
 
     todoEl.addEventListener("click", () => {
+      const todosList = JSON.parse(localStorage.getItem("todos"));
       todoEl.classList.toggle("completed");
+      if (todoEl.classList.contains("completed")) {
+        completedTodos++;
+      } else {
+        completedTodos--;
+      }
+      console.log(completedTodos);
       updateLS();
+      console.log(todosList.length);
+      if (todosList.length === completedTodos) {
+        console.log("show modal");
+      }
     });
 
     todoEl.addEventListener("contextmenu", (e) => {
       e.preventDefault();
       todoEl.remove();
+      completedTodos--;
       updateLS();
       displayDeleteBtn();
     });
@@ -51,6 +64,7 @@ function addTodo(todo) {
     todosUL.appendChild(todoEl);
 
     input.value = "";
+    // updateLS();
   }
 }
 
@@ -71,7 +85,6 @@ function updateLS() {
 
 function displayDeleteBtn() {
   const todosList = JSON.parse(localStorage.getItem("todos"));
-  // console.log(todosList);
   if (todosList.length > 0) {
     deleteBtn.style.display = "block";
   } else {
@@ -79,9 +92,20 @@ function displayDeleteBtn() {
   }
 }
 
+function countCompleted() {
+  const todosList = JSON.parse(localStorage.getItem("todos"));
+  todosList.forEach((todo) => {
+    if (todo.completed) {
+      completedTodos++;
+    }
+  });
+  console.log(completedTodos);
+}
+
 deleteBtn.addEventListener("click", () => {
   const items = document.querySelectorAll("li");
   items.forEach((item) => item.remove());
+  completedTodos = 0;
   updateLS();
   displayDeleteBtn();
 });
