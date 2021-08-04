@@ -55,6 +55,7 @@ form {
   font-size: 1.5rem;
   padding: 1rem 2rem;
   cursor: pointer;
+  position: relative;
 }
 
 .todos li.completed {
@@ -75,6 +76,23 @@ small {
   font-size: "Poppins", sans-serif;
   background-color: #f5f5f5;
   cursor: pointer;
+}
+
+.btn {
+  background-image: url(img/edit.png);
+  background-position: center;
+  border: none;
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-size: 90%;
+  position: absolute;
+  top: auto;
+  right: 10px;
+  bottom: auto;
+  padding: 0;
+  background-color: #fff;
+  /* cursor: pointer; */
 }
 
 @media (max-width: 600px) {
@@ -98,14 +116,4 @@ small {
     font-size: 1rem;
     padding: 0.5rem 1rem;
   }
-}
-
-.btn {
-  background-image: url(img/edit.png);
-  background-position: center;
-  border: none;
-  width: 24px;
-  height: 24px;
-  background-repeat: no-repeat;
-  background-size: 90%;
 }
