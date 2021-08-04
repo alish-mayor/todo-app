@@ -35,10 +35,14 @@ function addTodo(todo) {
     }
 
     todoEl.innerText = todoText;
+    todoEl.contentEditable = "false";
+    editButton(todoEl);
 
     todoEl.addEventListener("click", () => {
-      todoEl.classList.toggle("completed");
-      updateLS();
+      if (todoEl.contentEditable === "false") {
+        todoEl.classList.toggle("completed");
+        updateLS();
+      }
     });
 
     todoEl.addEventListener("contextmenu", (e) => {
@@ -71,7 +75,6 @@ function updateLS() {
 
 function displayDeleteBtn() {
   const todosList = JSON.parse(localStorage.getItem("todos"));
-  // console.log(todosList);
   if (todosList.length > 0) {
     deleteBtn.style.display = "block";
   } else {
@@ -85,3 +88,30 @@ deleteBtn.addEventListener("click", () => {
   updateLS();
   displayDeleteBtn();
 });
+
+function editButton(item) {
+  const btn = document.createElement("button");
+  btn.classList.add("btn");
+  if (item.contains(btn)) {
+    console.log("contain");
+  } else {
+    item.appendChild(btn);
+  }
+
+  btn.addEventListener("click", (e) => {
+    item.contentEditable = !item.isContentEditable;
+    item.focus();
+
+    if (item.contentEditable === "false") {
+      updateLS();
+    }
+
+    e.stopPropagation();
+  });
+
+  item.addEventListener("input", function () {
+    if (this.innerText.toString().length === 0) {
+      this.innerHTML = `&nbsp; <button class="btn"></button>`;
+    }
+  });
+}
