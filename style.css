@@ -99,3 +99,13 @@ small {
     padding: 0.5rem 1rem;
   }
 }
+
+.btn {
+  background-image: url(img/edit.png);
+  background-position: center;
+  border: none;
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-size: 90%;
+}

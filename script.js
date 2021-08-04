@@ -35,6 +35,7 @@ function addTodo(todo) {
     }
 
     todoEl.innerText = todoText;
+    addButton(todoEl);
 
     todoEl.addEventListener("click", () => {
       todoEl.classList.toggle("completed");
@@ -71,7 +72,6 @@ function updateLS() {
 
 function displayDeleteBtn() {
   const todosList = JSON.parse(localStorage.getItem("todos"));
-  // console.log(todosList);
   if (todosList.length > 0) {
     deleteBtn.style.display = "block";
   } else {
@@ -85,3 +85,13 @@ deleteBtn.addEventListener("click", () => {
   updateLS();
   displayDeleteBtn();
 });
+
+function addButton(item) {
+  const btn = document.createElement("button");
+  btn.classList.add = "btn";
+  if (!item.contains(btn)) {
+    item.appendChild(btn);
+  } else {
+    console.log("contain");
+  }
+}
