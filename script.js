@@ -98,15 +98,28 @@ function editButton(item) {
     item.appendChild(btn);
   }
 
-  btn.addEventListener("click", (e) => {
+  btn.addEventListener("click", function (e) {
     item.contentEditable = !item.isContentEditable;
-    item.focus();
-
+    // item.focus();
     if (item.contentEditable === "false") {
       updateLS();
     }
 
     e.stopPropagation();
+  });
+
+  item.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      updateLS();
+      item.blur();
+      item.contentEditable = false;
+    }
+  });
+
+  item.addEventListener("blur", function () {
+    item.contentEditable = false;
+    updateLS();
   });
 
   item.addEventListener("input", function () {
