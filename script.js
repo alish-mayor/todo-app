@@ -5,6 +5,10 @@ const deleteBtn = document.getElementById("delete-btn");
 
 const todos = JSON.parse(localStorage.getItem("todos"));
 
+let completedTodos = 0;
+
+countCompleted();
+
 if (todos) {
   displayDeleteBtn();
   todos.forEach((todo) => {
@@ -14,11 +18,8 @@ if (todos) {
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-
   addTodo();
-
   updateLS();
-
   displayDeleteBtn();
 });
 
@@ -39,6 +40,18 @@ function addTodo(todo) {
     editButton(todoEl);
 
     todoEl.addEventListener("click", () => {
+
+      const todosList = JSON.parse(localStorage.getItem("todos"));
+      if (todoEl.classList.contains("completed")) {
+        completedTodos++;
+      } else {
+        completedTodos--;
+      }
+      updateLS();
+      if (todosList.length === completedTodos) {
+        console.log("show modal");
+      }
+
       if (todoEl.contentEditable === "false") {
         todoEl.classList.toggle("completed");
         updateLS();
@@ -47,6 +60,9 @@ function addTodo(todo) {
 
     todoEl.addEventListener("contextmenu", (e) => {
       e.preventDefault();
+      if (todoEl.classList.contains("completed")) {
+        completedTodos--;
+      }
       todoEl.remove();
       updateLS();
       displayDeleteBtn();
@@ -82,9 +98,19 @@ function displayDeleteBtn() {
   }
 }
 
+function countCompleted() {
+  const todosList = JSON.parse(localStorage.getItem("todos"));
+  todosList.forEach((todo) => {
+    if (todo.completed) {
+      completedTodos++;
+    }
+  });
+}
+
 deleteBtn.addEventListener("click", () => {
   const items = document.querySelectorAll("li");
   items.forEach((item) => item.remove());
+  completedTodos = 0;
   updateLS();
   displayDeleteBtn();
 });
