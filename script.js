@@ -45,9 +45,7 @@ function addTodo(todo) {
       } else {
         completedTodos--;
       }
-      console.log(completedTodos);
       updateLS();
-      console.log(todosList.length);
       if (todosList.length === completedTodos) {
         console.log("show modal");
       }
@@ -55,8 +53,10 @@ function addTodo(todo) {
 
     todoEl.addEventListener("contextmenu", (e) => {
       e.preventDefault();
+      if (todoEl.classList.contains("completed")) {
+        completedTodos--;
+      }
       todoEl.remove();
-      completedTodos--;
       updateLS();
       displayDeleteBtn();
     });
@@ -64,7 +64,6 @@ function addTodo(todo) {
     todosUL.appendChild(todoEl);
 
     input.value = "";
-    // updateLS();
   }
 }
 
@@ -99,7 +98,6 @@ function countCompleted() {
       completedTodos++;
     }
   });
-  console.log(completedTodos);
 }
 
 deleteBtn.addEventListener("click", () => {
