@@ -49,7 +49,7 @@ function addTodo(todo) {
           completedTodos--;
         }
         if (todosList.length === completedTodos) {
-          console.log("show modal");
+          alert("All todos done! Great job!");
         }
         updateLS();
       }
