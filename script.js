@@ -40,20 +40,17 @@ function addTodo(todo) {
     editButton(todoEl);
 
     todoEl.addEventListener("click", () => {
-
-      const todosList = JSON.parse(localStorage.getItem("todos"));
-      if (todoEl.classList.contains("completed")) {
-        completedTodos++;
-      } else {
-        completedTodos--;
-      }
-      updateLS();
-      if (todosList.length === completedTodos) {
-        console.log("show modal");
-      }
-
       if (todoEl.contentEditable === "false") {
+        const todosList = JSON.parse(localStorage.getItem("todos"));
         todoEl.classList.toggle("completed");
+        if (todoEl.classList.contains("completed")) {
+          completedTodos++;
+        } else {
+          completedTodos--;
+        }
+        if (todosList.length === completedTodos) {
+          console.log("show modal");
+        }
         updateLS();
       }
     });
