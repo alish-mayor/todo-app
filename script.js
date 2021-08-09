@@ -36,10 +36,12 @@ function addTodo(todo) {
     }
 
     todoEl.innerText = todoText;
+    todoEl.contentEditable = "false";
+    editButton(todoEl);
 
     todoEl.addEventListener("click", () => {
+
       const todosList = JSON.parse(localStorage.getItem("todos"));
-      todoEl.classList.toggle("completed");
       if (todoEl.classList.contains("completed")) {
         completedTodos++;
       } else {
@@ -48,6 +50,11 @@ function addTodo(todo) {
       updateLS();
       if (todosList.length === completedTodos) {
         console.log("show modal");
+      }
+
+      if (todoEl.contentEditable === "false") {
+        todoEl.classList.toggle("completed");
+        updateLS();
       }
     });
 
@@ -107,3 +114,43 @@ deleteBtn.addEventListener("click", () => {
   updateLS();
   displayDeleteBtn();
 });
+
+function editButton(item) {
+  const btn = document.createElement("button");
+  btn.classList.add("btn");
+  if (item.contains(btn)) {
+    console.log("contain");
+  } else {
+    item.appendChild(btn);
+  }
+
+  btn.addEventListener("click", function (e) {
+    item.contentEditable = !item.isContentEditable;
+    // item.focus();
+    if (item.contentEditable === "false") {
+      updateLS();
+    }
+
+    e.stopPropagation();
+  });
+
+  item.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      updateLS();
+      item.blur();
+      item.contentEditable = false;
+    }
+  });
+
+  item.addEventListener("blur", function () {
+    item.contentEditable = false;
+    updateLS();
+  });
+
+  item.addEventListener("input", function () {
+    if (this.innerText.toString().length === 0) {
+      this.innerHTML = `&nbsp; <button class="btn"></button>`;
+    }
+  });
+}
