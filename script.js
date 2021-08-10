@@ -2,6 +2,7 @@ const form = document.getElementById("form");
 const input = document.getElementById("input");
 const todosUL = document.getElementById("todos");
 const deleteBtn = document.getElementById("delete-btn");
+const addTodoBtn = document.getElementById("addTodoBtn");
 
 const todos = JSON.parse(localStorage.getItem("todos"));
 
@@ -18,6 +19,9 @@ if (todos) {
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
+});
+
+addTodoBtn.addEventListener("click", () => {
   addTodo();
   updateLS();
   displayDeleteBtn();
@@ -39,7 +43,7 @@ function addTodo(todo) {
     todoEl.contentEditable = "false";
     editButton(todoEl);
 
-    todoEl.addEventListener("click", () => {
+    todoEl.addEventListener("click", (e) => {
       if (todoEl.contentEditable === "false") {
         const todosList = JSON.parse(localStorage.getItem("todos"));
         todoEl.classList.toggle("completed");
@@ -65,7 +69,11 @@ function addTodo(todo) {
       displayDeleteBtn();
     });
 
-    todosUL.appendChild(todoEl);
+    if (todo) {
+      todosUL.append(todoEl);
+    } else {
+      todosUL.insertBefore(todoEl, todosUL.firstChild);
+    }
 
     input.value = "";
   }
@@ -115,15 +123,11 @@ deleteBtn.addEventListener("click", () => {
 function editButton(item) {
   const btn = document.createElement("button");
   btn.classList.add("btn");
-  if (item.contains(btn)) {
-    console.log("contain");
-  } else {
-    item.appendChild(btn);
-  }
+  item.appendChild(btn);
 
   btn.addEventListener("click", function (e) {
     item.contentEditable = !item.isContentEditable;
-    // item.focus();
+    item.focus();
     if (item.contentEditable === "false") {
       updateLS();
     }
