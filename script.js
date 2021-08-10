@@ -2,7 +2,7 @@ const form = document.getElementById("form");
 const input = document.getElementById("input");
 const todosUL = document.getElementById("todos");
 const deleteBtn = document.getElementById("delete-btn");
-const addTodoBtn = document.getElementById("addTodoBtn");
+const addTodoBtn = document.getElementById("add-todo-btn");
 
 const todos = JSON.parse(localStorage.getItem("todos"));
 
@@ -23,9 +23,16 @@ form.addEventListener("submit", (e) => {
 
 addTodoBtn.addEventListener("click", () => {
   addTodo();
+  addTodoBtn.classList.remove("dark");
   updateLS();
   displayDeleteBtn();
 });
+
+input.addEventListener("input", () =>
+  input.value.length === 0
+    ? addTodoBtn.classList.remove("dark")
+    : addTodoBtn.classList.add("dark")
+);
 
 function addTodo(todo) {
   let todoText = input.value;

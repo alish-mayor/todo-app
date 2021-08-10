@@ -95,7 +95,7 @@ small {
   /* cursor: pointer; */
 }
 
-.addTodoBtn {
+.add-todo-btn {
   background-color: #f5f5f5;
   font-size: 1.5rem;
   padding: 0px 8px;
@@ -103,6 +103,11 @@ small {
   border: 0.3rem #b5b5b5 solid;
   border-radius: 3px;
   margin-bottom: 1rem;
+}
+
+.add-todo-btn.dark {
+  color: #000;
+  border-color: #000;
 }
 
 @media (max-width: 600px) {
