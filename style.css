@@ -110,6 +110,44 @@ small {
   border-color: #000;
 }
 
+.container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+}
+
+.container.active {
+  display: flex;
+}
+
+.modal-window {
+  background-color: #fff;
+  padding: 2rem 1.5rem;
+  border-radius: 7px;
+  text-align: center;
+}
+
+.modal-window h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.modal-window button {
+  color: #fff;
+  padding: 0.5rem 1rem;
+  background-color: rgb(153, 212, 151);
+  border: none;
+  font-family: "Poppins", sans-serif;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 @media (max-width: 600px) {
   body {
     padding: 1rem 0;

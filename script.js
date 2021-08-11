@@ -3,6 +3,8 @@ const input = document.getElementById("input");
 const todosUL = document.getElementById("todos");
 const deleteBtn = document.getElementById("delete-btn");
 const addTodoBtn = document.getElementById("add-todo-btn");
+const container = document.getElementById("container");
+const closeModalBtn = document.getElementById("close-modal-btn");
 
 const todos = JSON.parse(localStorage.getItem("todos"));
 
@@ -60,7 +62,7 @@ function addTodo(todo) {
           completedTodos--;
         }
         if (todosList.length === completedTodos) {
-          alert("All todos done! Great job!");
+          container.classList.add("active");
         }
         updateLS();
       }
@@ -162,3 +164,7 @@ function editButton(item) {
     }
   });
 }
+
+closeModalBtn.addEventListener("click", function () {
+  container.classList.remove("active");
+});
