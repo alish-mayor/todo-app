@@ -131,6 +131,8 @@ small {
   padding: 2rem 1.5rem;
   border-radius: 7px;
   text-align: center;
+  width: 400px;
+  max-width: 90%;
 }
 
 .modal-window h1 {
