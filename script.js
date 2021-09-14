@@ -114,11 +114,13 @@ function displayDeleteBtn() {
 
 function countCompleted() {
   const todosList = JSON.parse(localStorage.getItem("todos"));
-  todosList.forEach((todo) => {
-    if (todo.completed) {
-      completedTodos++;
-    }
-  });
+  if (todosList) {
+    todosList.forEach((todo) => {
+      if (todo.completed) {
+        completedTodos++;
+      }
+    });
+  }
 }
 
 deleteBtn.addEventListener("click", () => {
